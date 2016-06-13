@@ -13,9 +13,17 @@ else()
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
+set(CMAKE_MODULE_PATH 
+  ${CMAKE_MODULE_PATH} 
+  "${PROJECT_SOURCE_DIR}/CMakeModules/"
+)
+
+find_package(PkgConfig REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 include_directories(
   grid_map_core/include
-  ${EIGEN_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
 )
 
 set(HDRS
@@ -55,7 +63,7 @@ set(SRCS
   grid_map_core/src/iterators/LineIterator.cpp  
 )
 
-add_library(${PROJECT_NAME} SHARED ${SRCS})
+add_library(${PROJECT_NAME} STATIC ${SRCS})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-install(DIRECTORY include/grid_map_core DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+install(DIRECTORY grid_map_core/include DESTINATION ${CMAKE_INSTALL_PREFIX})
