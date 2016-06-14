@@ -13,8 +13,19 @@ else()
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-set(CMAKE_MODULE_PATH 
-  ${CMAKE_MODULE_PATH} 
+# Disables cpp-exceptions and real-time type inference.
+set(C_CXX_FLAGS     "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wno-unused-variable -Wno-unknown-pragmas -fPIC")
+if(DEFINED ENV{ARM_ARCHITECTURE})
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpu=neon -mfloat-abi=softfp -march=armv7-a")
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmmx -msse -msse -msse2 -msse3 -mssse3")
+endif()
+
+
+set(CMAKE_MODULE_PATH
+  ${CMAKE_MODULE_PATH}
   "${PROJECT_SOURCE_DIR}/CMakeModules/"
 )
 
@@ -45,7 +56,7 @@ set(HDRS
   grid_map_core/include/grid_map_core/SubmapGeometry.hpp
   grid_map_core/include/grid_map_core/TypeDefs.hpp
   grid_map_core/include/grid_map_core/grid_map_core.hpp
-  grid_map_core/include/grid_map_core/gtest_eigen.hpp  
+  grid_map_core/include/grid_map_core/gtest_eigen.hpp
 )
 
 set(SRCS
@@ -60,7 +71,7 @@ set(SRCS
   grid_map_core/src/iterators/EllipseIterator.cpp
   grid_map_core/src/iterators/SpiralIterator.cpp
   grid_map_core/src/iterators/PolygonIterator.cpp
-  grid_map_core/src/iterators/LineIterator.cpp  
+  grid_map_core/src/iterators/LineIterator.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
