@@ -119,27 +119,6 @@ class GridMapCvConverter
 
   /*!
    * Creates a cv mat from a grid map layer.
-   * This conversion sets the corresponding black and white pixel value to the
-   * min. and max. data of the layer data.
-   * @param[in] grid map to be added.
-   * @param[in] layer the layer that is converted to the image.
-   * @param[in] encoding the desired encoding of the image.
-   * @param[in] lowerValue the value of the layer corresponding to black image pixels.
-   * @param[in] upperValue the value of the layer corresponding to white image pixels.
-   * @param[out] image the image to be populated.
-   * @return true if successful, false otherwise.
-   */
-  template<typename Type_, int NChannels_>
-  static bool toImage(const grid_map::GridMap& gridMap, const std::string& layer,
-                      const int encoding, cv::Mat& image)
-  {
-    const float minValue = gridMap.get(layer).minCoeffOfFinites();
-    const float maxValue = gridMap.get(layer).maxCoeffOfFinites();
-    return toImage<Type_, NChannels_>(gridMap, layer, encoding, minValue, maxValue, image);
-  };
-
-  /*!
-   * Creates a cv mat from a grid map layer.
    * @param[in] grid map to be added.
    * @param[in] layer the layer that is converted to the image.
    * @param[in] encoding the desired encoding of the image.

@@ -34,6 +34,7 @@ find_package(Eigen3 REQUIRED)
 
 include_directories(
   grid_map_core/include
+  grid_map_cv/include
   ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -57,6 +58,9 @@ set(HDRS
   grid_map_core/include/grid_map_core/TypeDefs.hpp
   grid_map_core/include/grid_map_core/grid_map_core.hpp
   grid_map_core/include/grid_map_core/gtest_eigen.hpp
+  grid_map_cv/include/grid_map_cv/GridMapCvConverter.hpp
+  grid_map_cv/include/grid_map_cv/GridMapCvProcessing.hpp
+  grid_map_cv/include/grid_map_cv/grid_map_cv.hpp
 )
 
 set(SRCS
@@ -72,9 +76,11 @@ set(SRCS
   grid_map_core/src/iterators/SpiralIterator.cpp
   grid_map_core/src/iterators/PolygonIterator.cpp
   grid_map_core/src/iterators/LineIterator.cpp
+  grid_map_cv/src/GridMapCvProcessing.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 install(DIRECTORY grid_map_core/include DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY grid_map_cv/include DESTINATION ${CMAKE_INSTALL_PREFIX})
