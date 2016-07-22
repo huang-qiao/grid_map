@@ -35,6 +35,8 @@ find_package(Eigen3 REQUIRED)
 include_directories(
   grid_map_core/include
   grid_map_cv/include
+  grid_map_msgs/include
+  grid_map_ros/include
   ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -61,6 +63,21 @@ set(HDRS
   grid_map_cv/include/grid_map_cv/GridMapCvConverter.hpp
   grid_map_cv/include/grid_map_cv/GridMapCvProcessing.hpp
   grid_map_cv/include/grid_map_cv/grid_map_cv.hpp
+  grid_map_cv/include/grid_map_msgs/GetGridMap.h
+  grid_map_cv/include/grid_map_msgs/etGridMapInfo.h
+  grid_map_cv/include/grid_map_msgs/etGridMapInfoRequest.h
+  grid_map_cv/include/grid_map_msgs/etGridMapInfoResponse.h
+  grid_map_cv/include/grid_map_msgs/etGridMapRequest.h
+  grid_map_cv/include/grid_map_msgs/etGridMapResponse.h
+  grid_map_cv/include/grid_map_msgs/ridMap.h
+  grid_map_cv/include/grid_map_msgs/ridMapInfo.h
+  grid_map_cv/include/grid_map_msgs/rocessFile.h
+  grid_map_cv/include/grid_map_msgs/rocessFileRequest.h
+  grid_map_cv/include/grid_map_msgs/rocessFileResponse.h
+  grid_map_ros/include/grid_map_ros/GridMapMsgHelpers.hpp
+  grid_map_ros/include/grid_map_ros/GridMapRosConverter.hpp
+  grid_map_ros/include/grid_map_ros/PolygonRosConverter.hpp
+  grid_map_ros/include/grid_map_ros/grid_map_ros.hpp
 )
 
 set(SRCS
@@ -77,6 +94,9 @@ set(SRCS
   grid_map_core/src/iterators/PolygonIterator.cpp
   grid_map_core/src/iterators/LineIterator.cpp
   grid_map_cv/src/GridMapCvProcessing.cpp
+  grid_map_ros/src/GridMapMsgHelpers.cpp
+  grid_map_ros/src/GridMapRosConverter.cpp
+  grid_map_ros/src/PolygonRosConverter.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
@@ -84,3 +104,5 @@ add_library(${PROJECT_NAME} STATIC ${SRCS})
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 install(DIRECTORY grid_map_core/include DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(DIRECTORY grid_map_cv/include DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY grid_map_msgs/include DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY grid_map_ros/include DESTINATION ${CMAKE_INSTALL_PREFIX})
